@@ -1,0 +1,21 @@
+.button{
+    background:var(--brand-color);
+    color:white;
+    padding:10px 16px;
+    border-radius:8px;
+}
+
+
+@media only screen and (max-width:600px){
+    .header{
+       display:block
+    }
+}
+
+
+@media only screen and (min-width:600px){
+    .header{
+       display:flex;
+       justify-content: space-between
+    }
+}

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { useState, useEffect } from "react";
 
 export const metadata: Metadata = {
   title: "Next Graphql Project",
@@ -11,5 +12,13 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <div className="container">{children}</div>;
+  const [theme, setTheme] = useState("");
+  useEffect(() => {
+    const storedTheme = localStorage.getItem("theme");
+    if (storedTheme && storedTheme !== null) {
+      setTheme(storedTheme);
+    }
+  }, []);
+
+  return <div className={"container"}>{children}</div>;
 }
