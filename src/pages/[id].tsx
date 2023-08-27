@@ -5,7 +5,6 @@ import axios from "axios";
 import { GetServerSideProps } from "next";
 import { ApiProps } from "@/interfaces/ApiProps";
 import { useRouter } from "next/router";
-import { textFormatter } from "@/utils/textFormatter";
 import ErrorComponent from "@/components/ErrorComponent/ErrorComponent";
 import Header from "@/components/Header/Header";
 

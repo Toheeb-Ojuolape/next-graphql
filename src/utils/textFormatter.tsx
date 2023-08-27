@@ -13,3 +13,13 @@ export const numberFormatter = (number: number | string):string => {
     return number.toLocaleString("en");
   }
 };
+
+
+export const publicKeyTest = (pubkey:string) =>{
+  const regex = /\b[0-9a-f]{66}\b/  ;
+  if(regex.test(pubkey)){
+    return true
+  } else{
+    return false
+  }
+}
