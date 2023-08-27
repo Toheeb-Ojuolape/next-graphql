@@ -8,19 +8,19 @@ function TableSkeletonLoader() {
       {loadingList.map((_, i: number) => (
         <tr key={i}>
           <td>
-            <Skeleton width={"200px"} height={"20px"} border={"8px"} />
+            <Skeleton width={"200px"} height={"15px"} border={"8px"} />
           </td>
           <td>
-            <Skeleton width={"200px"} height={"20px"} border={"8px"} />
+            <Skeleton width={"200px"} height={"15px"} border={"8px"} />
           </td>
           <td>
-            <Skeleton width={"200px"} height={"20px"} border={"8px"} />
+            <Skeleton width={"200px"} height={"15px"} border={"8px"} />
           </td>
           <td>
-            <Skeleton width={"200px"} height={"20px"} border={"8px"} />
+            <Skeleton width={"200px"} height={"15px"} border={"8px"} />
           </td>
           <td>
-            <Skeleton width={"200px"} height={"20px"} border={"8px"} />
+            <Skeleton width={"200px"} height={"15px"} border={"8px"} />
           </td>
         </tr>
       ))}
