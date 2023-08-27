@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ChannelList from "@/components/ChannelList/ChannelList";
-import { Channels } from "@/interfaces/Channel";
+import { Channel, Channels } from "@/interfaces/Channel";
 import axios from "axios";
 import { GetServerSideProps } from "next";
 import { ApiProps } from "@/interfaces/ApiProps";
@@ -58,6 +58,7 @@ export const getServerSideProps: GetServerSideProps<ApiProps> = async (
 export default function Home(props: ApiProps) {
   const router = useRouter();
   const { id } = router.query;
+  const [filteredData,setFilteredData] = useState(props.data)
   const [direction, setDirection] = useState("");
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("");
@@ -71,7 +72,7 @@ export default function Home(props: ApiProps) {
     if (d != direction) {
       setLoading(true);
       setDirection(d);
-      fetchDirection(d);
+      filterByDirection(d);
     }
   };
 
@@ -79,7 +80,7 @@ export default function Home(props: ApiProps) {
     if (s != sortBy) {
       setLoading(true);
       setSortBy(s);
-      fetchSortBy(s);
+      filterBySortBy(s);
     }
   };
 
@@ -88,7 +89,7 @@ export default function Home(props: ApiProps) {
       setLoading(true);
       setPage(o);
       setOffset(o * 10);
-      fetchOffset(o * 10);
+      filterByOffset(o * 10);
     }
   };
 
@@ -96,11 +97,40 @@ export default function Home(props: ApiProps) {
     if (l != limit) {
       setLoading(true);
       setLimit(l)
-      fetchLimit(l);
+      filterByLimit(l);
     }
   };
 
-  const fetchOffset = (o: number) => {
+
+  const filterBySearch = (search:string) =>{
+    setSearch(search)
+    if (props.data && !search) {
+      setFilteredData(props.data)
+    }
+
+    else if(props.data && search){
+    let NewChannels: Channels = {
+      pagination: {
+        limit: 0,
+        offset: 0,
+      },
+      list: [],
+    };
+
+    let newList = props.data?.list.filter((channel:Channel)=>{
+      return (
+        channel.chan_point.toLowerCase().indexOf(search.toLowerCase()) > -1 ||
+        channel.long_channel_id.toLowerCase().indexOf(search.toLowerCase()) > -1 
+      )
+    })
+    NewChannels.pagination = props.data.pagination
+    NewChannels.list = newList
+    setFilteredData(NewChannels)
+  }
+    
+  }
+
+  const filterByOffset = (o: number) => {
     if (router.query) {
       router
         .replace({
@@ -122,7 +152,7 @@ export default function Home(props: ApiProps) {
     }
   };
 
-  const fetchSortBy = (e: string) => {
+  const filterBySortBy = (e: string) => {
     if (router.query) {
       router
         .replace({
@@ -143,7 +173,7 @@ export default function Home(props: ApiProps) {
     }
   };
 
-  const fetchDirection = (d: string) => {
+  const filterByDirection = (d: string) => {
     if (router.query) {
       router
         .replace({
@@ -165,7 +195,7 @@ export default function Home(props: ApiProps) {
     }
   };
 
-  const fetchLimit = (l: number) => {
+  const filterByLimit = (l: number) => {
     if (router.query) {
       router
         .replace({
@@ -190,16 +220,20 @@ export default function Home(props: ApiProps) {
   return (
     <div>
       <h1>Channel: {id && textFormatter(id)}</h1>
-      {props.data && (
+      {filteredData && (
         <ChannelList
           setDirection={setNewDirection}
-          setSearch={setSearch}
+          setSearch={filterBySearch}
           setSortBy={setNewSortBy}
-          channels={props.data}
+          channels={filteredData}
           page={page}
           setPage={setNewOffset}
           loading={loading}
           setLimit={setNewLimit}
+          offset={offset}
+          sortBy={sortBy}
+          direction={direction}
+          limit={limit}
         />
       )}
 
