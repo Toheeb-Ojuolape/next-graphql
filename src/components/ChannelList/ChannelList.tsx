@@ -3,6 +3,7 @@ import Tabs from "../Tabs/Tabs";
 import { useState } from "react";
 
 import Table from "../Table/Table";
+import Graphview from "../Graph/Graphview";
 
 export default function ChannelList(props: {
   channels: Channels;
@@ -12,6 +13,7 @@ export default function ChannelList(props: {
   page: number;
   setPage: Function;
   loading: boolean;
+  setLimit: Function;
 }) {
   const [active, setActive] = useState("table");
   return (
@@ -26,8 +28,13 @@ export default function ChannelList(props: {
           setSortBy={props.setSortBy}
           page={props.page}
           setPage={props.setPage}
+          setLimit={props.setLimit}
           loading={props.loading}
         />
+      )}
+
+      {active === "graph" && (
+        <Graphview />
       )}
     </div>
   );

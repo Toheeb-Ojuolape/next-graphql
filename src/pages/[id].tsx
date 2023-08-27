@@ -7,15 +7,15 @@ import { ApiProps } from "@/interfaces/ApiProps";
 import { useRouter } from "next/router";
 import { textFormatter } from "@/utils/textFormatter";
 import ErrorComponent from "@/components/ErrorComponent/ErrorComponent";
-import { useEffect } from "react";
 
 export const getServerSideProps: GetServerSideProps<ApiProps> = async (
   context
 ) => {
-  const { id, limit, direction, sortBy } = context.query;
+  const { id, offset, limit, direction, sortBy } = context.query;
   let isLoading = true;
 
-  const defaultLimit = limit ? limit : 50;
+  const defaultOffset = offset ? offset : 10;
+  const defaultLimit = limit ? limit : 10;
   const defaultDirection = direction ? direction : "ASC";
   const defaultSortBy = sortBy ? sortBy : "capacity";
 
@@ -25,12 +25,14 @@ export const getServerSideProps: GetServerSideProps<ApiProps> = async (
       url:
         "http://localhost:3000/api/graphql?pubkey=" +
         id +
-        "&limit=" +
-        defaultLimit +
+        "&offset=" +
+        defaultOffset +
         "&direction=" +
         defaultDirection +
         "&sortBy=" +
-        defaultSortBy,
+        defaultSortBy +
+        "&limit=" +
+        defaultLimit,
     });
     const data: Channels =
       response.data.data.getNode.graph_info.channels.channel_list;
@@ -60,59 +62,130 @@ export default function Home(props: ApiProps) {
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("");
   const [page, setPage] = useState(1);
-  const [loading,setLoading] = useState(false)
+  const [offset, setOffset] = useState(10);
+  const [limit,setLimit] = useState(10)
+  const [loading, setLoading] = useState(false);
 
 
-  const setNewDirection = (e:string) =>{
-    setLoading(true)
-    setDirection(e)
-  }
-
-  const setNewSortBy = (e:string) =>{
-    setLoading(true)
-    setSortBy(e)
-  }
-
-  useEffect(() => {
-    if (page !== 1) {
-      console.log("Change in pagination");
+  const setNewDirection = async (d: string) => {
+    if (d != direction) {
+      setLoading(true);
+      setDirection(d);
+      fetchDirection(d);
     }
-    if (sortBy !== "") {
-      if (router.query.sortBy) {
-        router.replace({
-          pathname:router.pathname,
-          query:{ ...router.query,sortBy:sortBy }
-        }).then(()=>{
-          setLoading(false)
-        }).catch((error)=>{
-          setLoading(false)
+  };
+
+  const setNewSortBy = (s: string) => {
+    if (s != sortBy) {
+      setLoading(true);
+      setSortBy(s);
+      fetchSortBy(s);
+    }
+  };
+
+  const setNewOffset = (o: number) => {
+    if (o != offset) {
+      setLoading(true);
+      setPage(o);
+      setOffset(o * 10);
+      fetchOffset(o * 10);
+    }
+  };
+
+  const setNewLimit = (l: number) => {
+    if (l != limit) {
+      setLoading(true);
+      setLimit(l)
+      fetchLimit(l);
+    }
+  };
+
+  const fetchOffset = (o: number) => {
+    if (router.query) {
+      router
+        .replace({
+          pathname: router.pathname,
+          query: { ...router.query, offset: o },
         })
-      } else {
-        router.push({
-          pathname: router.asPath,
-          query: { sortBy:sortBy },
-        });
-      }
-    }
-    if (direction !== "") {
-      if (router.query.direction) {
-        router.replace({
-          pathname:router.pathname,
-          query:{ ...router.query,sortBy:sortBy }
-        }).then((response)=>{
-          console.log(response)
-          setLoading(false)
-        }).catch((error)=>{
-          setLoading(false)
+        .then((response) => {
+          console.log(response);
+          setLoading(false);
         })
-      } else {
-        router.push({
-          pathname: router.asPath,
-          query: { direction: direction },
+        .catch(() => {
+          setLoading(false);
         });
-      }
+    } else {
+      router.push({
+        pathname: router.asPath,
+        query: { offset: o, sortBy: "", direction: "", limit: "" },
+      });
     }
-  }, [page, sortBy, direction]);
+  };
+
+  const fetchSortBy = (e: string) => {
+    if (router.query) {
+      router
+        .replace({
+          pathname: router.pathname,
+          query: { ...router.query, sortBy: e },
+        })
+        .then(() => {
+          setLoading(false);
+        })
+        .catch(() => {
+          setLoading(false);
+        });
+    } else {
+      router.push({
+        pathname: router.asPath,
+        query: { sortBy: e, offset: "", direction: "", limit: "" },
+      });
+    }
+  };
+
+  const fetchDirection = (d: string) => {
+    if (router.query) {
+      router
+        .replace({
+          pathname: router.pathname,
+          query: { ...router.query, direction: d },
+        })
+        .then((response) => {
+          console.log(response);
+          setLoading(false);
+        })
+        .catch(() => {
+          setLoading(false);
+        });
+    } else {
+      router.push({
+        pathname: router.asPath,
+        query: { direction: d, offset: "", sortBy: "", limit: "" },
+      });
+    }
+  };
+
+  const fetchLimit = (l: number) => {
+    if (router.query) {
+      router
+        .replace({
+          pathname: router.pathname,
+          query: { ...router.query, limit: l },
+        })
+        .then((response) => {
+          console.log(response);
+          setLoading(false);
+        })
+        .catch(() => {
+          setLoading(false);
+        });
+    } else {
+      router.push({
+        pathname: router.asPath,
+        query: { limit: l, direction: "", offset: "", sortBy: "" },
+      });
+    }
+  };
 
   return (
     <div>
@@ -124,8 +197,9 @@ export default function Home(props: ApiProps) {
           setSortBy={setNewSortBy}
           channels={props.data}
           page={page}
-          setPage={setPage}
+          setPage={setNewOffset}
           loading={loading}
+          setLimit={setNewLimit}
         />
       )}
 

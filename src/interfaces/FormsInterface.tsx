@@ -1,4 +1,4 @@
 export interface SelectProps{
-    name:string,
-    value:string
+    name:string | number,
+    value:string | number
 }
