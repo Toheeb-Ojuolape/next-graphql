@@ -1,0 +1,31 @@
+
+select{
+    border: 1px solid #ebf0ef;
+    padding:4px 10px 4px 10px;
+    border-radius:8px;
+    margin:0px 0px 0px 20px;
+    transition: border ease-in-out 300ms;
+    font-size:16px;
+    min-height: 40px;
+}
+
+
+select:focus{
+    border: 1px solid var(--brand-color);
+    outline: var(--brand-color)
+}
+
+
+input {
+  padding: 10px;
+  border-radius: 5px;
+  outline: 0;
+  border: 1px solid #ebf0ef;
+  transition: border ease-in-out 300ms;
+  font-size:16px
+}
+
+input:focus{
+    border: 1px solid var(--brand-color);
+    outline: var(--brand-color);
+}

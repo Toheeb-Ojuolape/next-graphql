@@ -1,0 +1,11 @@
+.activePage{
+    background:var(--brand-color);
+    padding:0px 8px;
+    color:white;
+    border-radius:6px
+}
+
+.pageButton{
+    margin:0px 0px 0px 20px;
+    cursor: pointer;
+}
