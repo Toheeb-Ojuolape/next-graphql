@@ -36,7 +36,7 @@ function Header(props: { id: string | string[] }) {
 
   return (
     <div className="header">
-      <h1>Channel: {props.id && textFormatter(props.id)}</h1>
+      <h1>Pubkey: {props.id && textFormatter(props.id)}</h1>
       <button className="button" onClick={toggleTheme}>
         {theme === "dark" ? "Light" : "Dark"} Mode
       </button>
