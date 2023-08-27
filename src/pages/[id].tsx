@@ -20,10 +20,13 @@ export const getServerSideProps: GetServerSideProps<ApiProps> = async (
   const defaultSortBy = sortBy ? sortBy : "capacity";
 
   try {
+    if(!process.env.NEXT_APP_API_URL){
+      throw new Error("Please set your API URL")
+    }
     const response = await axios({
       method: "GET",
       url:
-        "http://localhost:3000/api/graphql?pubkey=" +
+        process.env.NEXT_APP_API_URL +
         id +
         "&offset=" +
         defaultOffset +
@@ -133,8 +136,7 @@ export default function Home(props: ApiProps) {
           pathname: router.pathname,
           query: { ...router.query, offset: o },
         })
-        .then((response) => {
-          console.log(response);
+        .then(() => {
           setLoading(false);
         })
         .catch(() => {
@@ -176,8 +178,7 @@ export default function Home(props: ApiProps) {
           pathname: router.pathname,
           query: { ...router.query, direction: d },
         })
-        .then((response) => {
-          console.log(response);
+        .then(() => {
           setLoading(false);
         })
         .catch(() => {
@@ -198,8 +199,7 @@ export default function Home(props: ApiProps) {
           pathname: router.pathname,
           query: { ...router.query, limit: l },
         })
-        .then((response) => {
-          console.log(response);
+        .then(() => {
           setLoading(false);
         })
         .catch(() => {

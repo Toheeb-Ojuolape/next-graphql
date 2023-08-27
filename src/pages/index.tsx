@@ -1,6 +1,6 @@
 import { useState } from "react";
 import EnterPubKey from "@/components/Modal/EnterPubKey";
-import HomeComponent from "@/components/Home/HomeComponent";
+import HomeComponent from "../components/Home/HomeComponent";
 
 export default function Home() {
   const [showModal, setShowModal] = useState(true);

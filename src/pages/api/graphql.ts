@@ -31,7 +31,7 @@ export default function ApiHandler(req: NextApiRequest, res: NextApiResponse) {
 
   axios({
     method: "POST",
-    url: "https://api.amboss.space/graphql",
+    url: process.env.NEXT_APP_AMBOSS_URL,
     headers: myHeaders,
     data: graphql,
   })
@@ -39,7 +39,6 @@ export default function ApiHandler(req: NextApiRequest, res: NextApiResponse) {
       res.status(200).json({ data: response.data.data });
     })
     .catch((error) => {
-      console.error("error", error);
       res.status(500).json(error);
     });
 }
