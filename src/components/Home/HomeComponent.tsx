@@ -4,7 +4,7 @@ import PrimaryButton from "../Buttons/PrimaryButton";
 function HomeComponent(props: { setShowModal: Function }) {
   return (
     <div>
-      <h2>Err, there's really nothing else do</h2>
+      <h2>Err, there is really nothing else do</h2>
       <p>
         To see the magic happen, click the button below to enter a valid public
         key and fetch some data!
