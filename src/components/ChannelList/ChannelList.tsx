@@ -3,7 +3,8 @@ import Tabs from "../Tabs/Tabs";
 import { useState } from "react";
 
 import Table from "../Table/Table";
-import Graphview from "../Graph/Graphview";
+import Graphview from "../Graph/GraphView";
+import Filter from "../Filter/Filter";
 
 export default function ChannelList(props: {
   channels: Channels;
@@ -14,11 +15,21 @@ export default function ChannelList(props: {
   setPage: Function;
   loading: boolean;
   setLimit: Function;
+  offset: number;
+  limit: number;
+  sortBy: string;
+  direction: string;
 }) {
   const [active, setActive] = useState("table");
   return (
     <div className="my-5">
       <Tabs active={active} setActive={setActive} />
+      <Filter
+        setSearch={props.setSearch}
+        setDirection={props.setDirection}
+        setSortBy={props.setSortBy}
+        active={active}
+      />
 
       {active === "table" && (
         <Table
@@ -33,9 +44,7 @@ export default function ChannelList(props: {
         />
       )}
 
-      {active === "graph" && (
-        <Graphview />
-      )}
+      {active === "graph" && <Graphview channels={props.channels} />}
     </div>
   );
 }
