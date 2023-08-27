@@ -23,7 +23,8 @@ input {
   outline: 0;
   border: 1px solid #ebf0ef;
   transition: border ease-in-out 300ms;
-  font-size:16px
+  font-size:16px;
+  color:var(--normal-color)
 }
 
 input:focus{
