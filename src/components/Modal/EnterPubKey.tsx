@@ -23,14 +23,12 @@ function EnterPubKey(props: {
       .then(() => {
         setLoading(false);
       })
-      .catch((error) => {
+      .catch(() => {
         setLoading(false);
       });
   };
 
   useEffect(() => {
-    console.log(pubkey);
-    console.log(publicKeyTest(pubkey));
     if (publicKeyTest(pubkey)) {
       setDisabled(false);
     } else {
