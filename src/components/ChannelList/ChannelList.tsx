@@ -44,7 +44,9 @@ export default function ChannelList(props: {
         />
       )}
 
-      {active === "graph" && <Graphview channels={props.channels} />}
+      {active === "graph" && (
+        <Graphview loading={props.loading} channels={props.channels} />
+      )}
     </div>
   );
 }

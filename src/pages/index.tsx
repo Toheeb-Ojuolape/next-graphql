@@ -1,6 +1,7 @@
 import { useState } from "react";
 import EnterPubKey from "@/components/Modal/EnterPubKey";
 import HomeComponent from "../components/Home/HomeComponent";
+import Head from "next/head";
 
 export default function Home() {
   const [showModal, setShowModal] = useState(true);
@@ -9,6 +10,10 @@ export default function Home() {
   };
   return (
     <div id="main">
+       <Head>
+        <title>GraphQL - Next Project</title>
+      </Head>
+
       <div className="home-container">
         <HomeComponent setShowModal={setShowModal} />
       </div>

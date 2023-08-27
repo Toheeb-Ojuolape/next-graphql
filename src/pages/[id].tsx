@@ -7,6 +7,7 @@ import { ApiProps } from "@/interfaces/ApiProps";
 import { useRouter } from "next/router";
 import ErrorComponent from "@/components/ErrorComponent/ErrorComponent";
 import Header from "@/components/Header/Header";
+import Head from "next/head";
 
 export const getServerSideProps: GetServerSideProps<ApiProps> = async (
   context
@@ -20,8 +21,8 @@ export const getServerSideProps: GetServerSideProps<ApiProps> = async (
   const defaultSortBy = sortBy ? sortBy : "capacity";
 
   try {
-    if(!process.env.NEXT_APP_API_URL){
-      throw new Error("Please set your API URL")
+    if (!process.env.NEXT_APP_API_URL) {
+      throw new Error("Please set your API URL");
     }
     const response = await axios({
       method: "GET",
@@ -215,6 +216,10 @@ export default function Home(props: ApiProps) {
 
   return (
     <div>
+      <Head>
+        <title>Channel - {id}</title>
+      </Head>
+
       {id && <Header id={id} />}
       {props.data && (
         <ChannelList
