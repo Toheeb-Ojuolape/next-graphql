@@ -1,0 +1,40 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border:1px solid #feeaf3;
+  border-radius:10px;
+  margin:20px 0px
+}
+
+th, td {
+  padding: 8px;
+  white-space: nowrap;
+  text-align: center;
+}
+
+tr:nth-child(even) {
+  background-color: #feeaf3;
+}
+
+th {
+  color: #ff0080;
+}
+
+
+@media only screen and (max-width: 600px) {
+    .table-container {
+        width: 100%;
+        overflow-x: auto;
+        margin: 10px 0px;
+        display:flex
+      }
+  }
+  
+  @media only screen and (min-width:600px){
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      margin: 10px 0px;
+    }
+  }
+

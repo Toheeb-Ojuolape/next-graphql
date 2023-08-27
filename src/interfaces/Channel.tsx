@@ -27,3 +27,12 @@ export interface Channel {
   short_channel_id: string;
   node2_info: NodeInfo;
 }
+
+
+export interface Channels {
+  pagination: {
+    limit: number;
+    offset: number;
+  };
+  list: Channel[];
+}
