@@ -35,7 +35,7 @@ export default async function ApiHandler(
   try {
     const response = await axios({
       method: "POST",
-      url: process.env.NEXT_APP_AMBOSS_URL,
+      url: process.env.NEXT_APP_LIVE_URL,
       headers: myHeaders,
       data: graphql,
     });

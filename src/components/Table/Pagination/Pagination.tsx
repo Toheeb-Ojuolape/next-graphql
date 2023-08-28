@@ -1,7 +1,7 @@
 import PageButton from "./PageButton";
 function Pagination(props: {
   page: number;
-  defaultPage: number;
+  defaultPage?: number;
   setPage: Function;
 }) {
   const totalPages = 5;

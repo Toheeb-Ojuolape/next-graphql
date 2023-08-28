@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { textFormatter } from "@/utils/textFormatter";
 import "./Header.css";
-import { NextRouter } from "next/router";
+import { Pagination } from "@/interfaces/Channel";
 
-function Header(props: { router: NextRouter }) {
+function Header(props: { id:string,pagination:Pagination }) {
   const [theme, setTheme] = useState("");
 
   useEffect(() => {
@@ -40,11 +40,9 @@ function Header(props: { router: NextRouter }) {
       <div>
         <h1>
           Pubkey:{" "}
-          {props.router.query.id && textFormatter(props.router.query.id)}
+          {props.id && textFormatter(props.id)}
         </h1>
-        <p className="my-2">
-          Limit: {props.router.query.limit}, Offset: {props.router.query.offset}
-        </p>
+        <p className="my-2">Limit: {props.pagination.limit}, Offset: {props.pagination.offset}</p>
       </div>
       <button className="button" onClick={toggleTheme}>
         {theme === "dark" ? "Light" : "Dark"} Mode

@@ -214,7 +214,9 @@ export default function PubkeyPage(props: ApiProps) {
 
   return (
     <div>
-      {id && <Header router={router} />}
+      {props.data && id && (
+        <Header id={String(id)} pagination={props.data.pagination} />
+      )}
       {props.data && (
         <ChannelList
           setDirection={setNewDirection}

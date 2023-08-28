@@ -11,7 +11,7 @@ test("renders button with correct text", () => {
   );
 
   const button = getByText("Button Text");
-  expect(button).toBeTruthy();
+  expect(button).toBeDefined();
   expect(button.className).toContain("customClass pageButton");
 });
 
