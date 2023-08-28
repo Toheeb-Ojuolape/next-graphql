@@ -8,9 +8,8 @@ interface NodePolicy {
   time_lock_delta: number;
 }
 
-
-interface NodeInfo{
-    node: Map<string,string>
+interface NodeInfo {
+  node: Map<string, string>;
 }
 
 export interface Channel {
@@ -28,11 +27,12 @@ export interface Channel {
   node2_info: NodeInfo;
 }
 
+export interface Pagination {
+  limit: number;
+  offset: number;
+}
 
 export interface Channels {
-  pagination: {
-    limit: number;
-    offset: number;
-  };
+  pagination: Pagination;
   list: Channel[];
 }

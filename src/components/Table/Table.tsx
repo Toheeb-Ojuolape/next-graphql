@@ -24,6 +24,11 @@ export default function Table(props: {
     window.scroll(0, 0);
     props.setLimit(e);
   };
+
+  const handleSetPage = (e:number) =>{
+    window.scroll(0, 0);
+    props.setPage(e);
+  }
   return (
     <div>
       {props.channels && (
@@ -40,7 +45,7 @@ export default function Table(props: {
       <Pagination
         defaultPage={Number(props.router.query.offset) / 10}
         page={props.page}
-        setPage={props.setPage}
+        setPage={handleSetPage}
       />
     </div>
   );
