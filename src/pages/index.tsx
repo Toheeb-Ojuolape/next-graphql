@@ -3,7 +3,7 @@ import EnterPubKey from "@/components/Modal/EnterPubKey";
 import HomeComponent from "../components/Home/HomeComponent";
 import Head from "next/head";
 
-export default function Home() {
+export default function HomePage() {
   const [showModal, setShowModal] = useState(true);
   const onClose = () => {
     setShowModal(false);

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { textFormatter } from "@/utils/textFormatter";
-import "./Header.css"
+import "./Header.css";
+import { NextRouter } from "next/router";
 
-function Header(props: { id: string | string[] }) {
+function Header(props: { router: NextRouter }) {
   const [theme, setTheme] = useState("");
 
   useEffect(() => {
@@ -35,8 +36,16 @@ function Header(props: { id: string | string[] }) {
   };
 
   return (
-    <div className="header">
-      <h1>Pubkey: {props.id && textFormatter(props.id)}</h1>
+    <div className="nav-header">
+      <div>
+        <h1>
+          Pubkey:{" "}
+          {props.router.query.id && textFormatter(props.router.query.id)}
+        </h1>
+        <p className="my-2">
+          Limit: {props.router.query.limit}, Offset: {props.router.query.offset}
+        </p>
+      </div>
       <button className="button" onClick={toggleTheme}>
         {theme === "dark" ? "Light" : "Dark"} Mode
       </button>

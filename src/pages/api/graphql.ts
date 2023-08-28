@@ -1,12 +1,15 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import axios from "axios";
 
-export default function ApiHandler(req: NextApiRequest, res: NextApiResponse) {
+export default async function ApiHandler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   let offsetQuery = req.query.offset;
-  let limitQuery = req.query.limit
+  let limitQuery = req.query.limit;
   let offset: number | undefined;
-  let limit: number | undefined
+  let limit: number | undefined;
+
   if (typeof offsetQuery === "string") {
     offset = parseInt(offsetQuery);
   }
@@ -29,16 +32,15 @@ export default function ApiHandler(req: NextApiRequest, res: NextApiResponse) {
     "Content-Type": "application/json",
   };
 
-  axios({
-    method: "POST",
-    url: process.env.NEXT_APP_AMBOSS_URL,
-    headers: myHeaders,
-    data: graphql,
-  })
-    .then((response) => {
-      res.status(200).json({ data: response.data.data });
-    })
-    .catch((error) => {
-      res.status(500).json(error);
+  try {
+    const response = await axios({
+      method: "POST",
+      url: process.env.NEXT_APP_AMBOSS_URL,
+      headers: myHeaders,
+      data: graphql,
     });
+    res.status(200).json({ data: response.data.data });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
 }

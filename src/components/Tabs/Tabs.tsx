@@ -1,5 +1,4 @@
 import React from "react";
-import "./Tabs.css"
 
 function Tabs(props: { active: string,setActive:Function }) {
   return (

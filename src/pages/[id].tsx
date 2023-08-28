@@ -59,12 +59,11 @@ export const getServerSideProps: GetServerSideProps<ApiProps> = async (
   }
 };
 
-export default function Home(props: ApiProps) {
+export default function PubkeyPage(props: ApiProps) {
   const router = useRouter();
   const { id } = router.query;
   const [filteredData, setFilteredData] = useState<Channels | undefined>();
   const [direction, setDirection] = useState("");
-  const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("");
   const [page, setPage] = useState(1);
   const [offset, setOffset] = useState(10);
@@ -105,7 +104,6 @@ export default function Home(props: ApiProps) {
   };
 
   const filterBySearch = (search: string) => {
-    setSearch(search);
     if (props.data && !search) {
       setFilteredData(undefined);
     } else if (props.data && search) {
@@ -216,11 +214,7 @@ export default function Home(props: ApiProps) {
 
   return (
     <div>
-      <Head>
-        <title>Channel - {id}</title>
-      </Head>
-
-      {id && <Header id={id} />}
+      {id && <Header router={router} />}
       {props.data && (
         <ChannelList
           setDirection={setNewDirection}
@@ -235,6 +229,7 @@ export default function Home(props: ApiProps) {
           sortBy={sortBy}
           direction={direction}
           limit={limit}
+          router={router}
         />
       )}
 

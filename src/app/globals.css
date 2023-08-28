@@ -9,14 +9,16 @@
   --dark-bg: #240422;
 }
 
-
 @font-face {
   font-family: "PP Radio";
   src: url("../assets/fonts/PPRadioGrotesk-Regular.otf");
 }
 
+html {
+  scroll-behavior: smooth;
+}
 body {
-  font-family: "PP Radio"
+  font-family: "PP Radio";
 }
 
 h1 {
@@ -45,7 +47,7 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: center;
-    height:100vh
+    height: 100vh;
   }
 }
 

@@ -1,8 +1,7 @@
 import React from "react";
-import "./Loader.css"
 
 function ButtonLoading() {
-  return <div className="spinner"></div>;
+  return <div data-testid="button-loading" className="spinner"></div>;
 }
 
 export default ButtonLoading;

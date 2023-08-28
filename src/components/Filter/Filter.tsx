@@ -2,12 +2,14 @@ import React from "react";
 import "./Filter.css";
 import Select from "@/components/Forms/Select";
 import Input from "@/components/Forms/Input";
+import { NextRouter } from "next/router";
 
 function Filter(props: {
   active: string;
   setSearch: Function;
   setDirection: Function;
   setSortBy: Function;
+  router: NextRouter;
 }) {
   const directions = [
     { name: "Ascending", value: "ASC" },
@@ -32,12 +34,14 @@ function Filter(props: {
         onChange={props.setSortBy}
         placeholder={"Sort By"}
         options={sortBys}
+        defaultValue={String(props.router.query.sortBy)}
       />
 
       <Select
         onChange={props.setDirection}
         placeholder={"Direction"}
         options={directions}
+        defaultValue={String(props.router.query.direction)}
       />
     </div>
   );
