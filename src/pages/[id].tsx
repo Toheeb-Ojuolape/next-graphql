@@ -7,6 +7,7 @@ import { ApiProps } from "@/interfaces/ApiProps";
 import { useRouter } from "next/router";
 import ErrorComponent from "@/components/ErrorComponent/ErrorComponent";
 import Header from "@/components/Header/Header";
+import Head from "next/head";
 
 export const getServerSideProps: GetServerSideProps<ApiProps> = async (
   context
@@ -20,8 +21,8 @@ export const getServerSideProps: GetServerSideProps<ApiProps> = async (
   const defaultSortBy = sortBy ? sortBy : "capacity";
 
   try {
-    if(!process.env.NEXT_APP_API_URL){
-      throw new Error("Please set your API URL")
+    if (!process.env.NEXT_APP_API_URL) {
+      throw new Error("Please set your API URL");
     }
     const response = await axios({
       method: "GET",
@@ -58,12 +59,11 @@ export const getServerSideProps: GetServerSideProps<ApiProps> = async (
   }
 };
 
-export default function Home(props: ApiProps) {
+export default function PubkeyPage(props: ApiProps) {
   const router = useRouter();
   const { id } = router.query;
   const [filteredData, setFilteredData] = useState<Channels | undefined>();
   const [direction, setDirection] = useState("");
-  const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("");
   const [page, setPage] = useState(1);
   const [offset, setOffset] = useState(10);
@@ -104,7 +104,6 @@ export default function Home(props: ApiProps) {
   };
 
   const filterBySearch = (search: string) => {
-    setSearch(search);
     if (props.data && !search) {
       setFilteredData(undefined);
     } else if (props.data && search) {
@@ -215,7 +214,7 @@ export default function Home(props: ApiProps) {
 
   return (
     <div>
-      {id && <Header id={id} />}
+      {id && <Header router={router} />}
       {props.data && (
         <ChannelList
           setDirection={setNewDirection}
@@ -230,6 +229,7 @@ export default function Home(props: ApiProps) {
           sortBy={sortBy}
           direction={direction}
           limit={limit}
+          router={router}
         />
       )}
 

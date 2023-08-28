@@ -1,7 +1,7 @@
 import React from 'react'
 import error from "../../assets/error.svg"
 import Image from 'next/image'
-import "./ErrorComponent.css"
+
 
 function ErrorComponent(props:{error:string}) {
   return (

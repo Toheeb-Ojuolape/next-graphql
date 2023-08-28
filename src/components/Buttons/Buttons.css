@@ -12,11 +12,11 @@
 
 .primaryBtn{
     background-color: var(--brand-color);
-    transition:background-color 2s ease
+    transition:background-color 0.5s ease
 }
 
 
 .disabled{
     background-color: #ebf0ef;
-    transition:background-color 3s ease
+    transition:background-color 0.5s ease
 }

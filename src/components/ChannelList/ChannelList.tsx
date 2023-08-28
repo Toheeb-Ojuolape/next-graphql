@@ -1,10 +1,10 @@
 import { Channels } from "@/interfaces/Channel";
 import Tabs from "../Tabs/Tabs";
 import { useState } from "react";
-
 import Table from "../Table/Table";
 import Graphview from "../Graph/GraphView";
 import Filter from "../Filter/Filter";
+import { NextRouter } from "next/router";
 
 export default function ChannelList(props: {
   channels: Channels;
@@ -19,6 +19,7 @@ export default function ChannelList(props: {
   limit: number;
   sortBy: string;
   direction: string;
+  router: NextRouter;
 }) {
   const [active, setActive] = useState("table");
   return (
@@ -29,6 +30,7 @@ export default function ChannelList(props: {
         setDirection={props.setDirection}
         setSortBy={props.setSortBy}
         active={active}
+        router={props.router}
       />
 
       {active === "table" && (
@@ -41,10 +43,13 @@ export default function ChannelList(props: {
           setPage={props.setPage}
           setLimit={props.setLimit}
           loading={props.loading}
+          router={props.router}
         />
       )}
 
-      {active === "graph" && <Graphview channels={props.channels} />}
+      {active === "graph" && (
+        <Graphview loading={props.loading} channels={props.channels} />
+      )}
     </div>
   );
 }

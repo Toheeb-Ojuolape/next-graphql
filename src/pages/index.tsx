@@ -1,14 +1,19 @@
 import { useState } from "react";
 import EnterPubKey from "@/components/Modal/EnterPubKey";
 import HomeComponent from "../components/Home/HomeComponent";
+import Head from "next/head";
 
-export default function Home() {
+export default function HomePage() {
   const [showModal, setShowModal] = useState(true);
   const onClose = () => {
     setShowModal(false);
   };
   return (
     <div id="main">
+       <Head>
+        <title>GraphQL - Next Project</title>
+      </Head>
+
       <div className="home-container">
         <HomeComponent setShowModal={setShowModal} />
       </div>

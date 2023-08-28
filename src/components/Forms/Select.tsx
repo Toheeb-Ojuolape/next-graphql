@@ -5,9 +5,14 @@ function Select(props: {
   options: Array<SelectProps>;
   placeholder: string;
   onChange: Function;
+  defaultValue?: string;
 }) {
   return (
-    <select placeholder={props.placeholder} onChange={(e) => props.onChange(e.target.value)}>
+    <select
+      defaultValue={props.defaultValue}
+      placeholder={props.placeholder}
+      onChange={(e) => props.onChange(e.target.value)}
+    >
       <option hidden value="">
         {" "}
         {props.placeholder}

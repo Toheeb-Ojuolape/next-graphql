@@ -24,7 +24,8 @@ input {
   border: 1px solid #ebf0ef;
   transition: border ease-in-out 300ms;
   font-size:16px;
-  color:var(--normal-color)
+  color:var(--normal-color);
+  width:100%
 }
 
 input:focus{

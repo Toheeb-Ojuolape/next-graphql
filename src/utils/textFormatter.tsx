@@ -1,6 +1,6 @@
 export const textFormatter = (string: string | string[]):string | string[] => {
   if (string.length > 30) {
-    return string.slice(0, 20) + "...";
+    return string.slice(0, 14) + "....";
   } else {
     return string;
   }

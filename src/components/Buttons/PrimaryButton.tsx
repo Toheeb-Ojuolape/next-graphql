@@ -1,5 +1,4 @@
 import React, { MouseEventHandler } from "react";
-import "./Buttons.css";
 import ButtonLoading from "../Loader/ButtonLoading";
 
 function PrimaryButton(props: {
@@ -14,7 +13,7 @@ function PrimaryButton(props: {
       disabled={props.disabled}
       className={props.disabled ? "disabled btn" : "primaryBtn btn"}
     >
-      {props.loading ? <ButtonLoading />:props.title}
+      {props.loading ? <ButtonLoading  data-testid="button-loading"/>:props.title}
     </button>
   );
 }
